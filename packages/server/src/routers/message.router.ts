@@ -8,7 +8,7 @@ import {
 const router = Router();
 
 router.post("/", sendMessage);
-router.get("/user", getUserMessages); // query: user
-router.get("/room", getRoomMessages); // query: room
+router.get("/user", getUserMessages);
+router.get("/room", getRoomMessages);
 
 export default router;
