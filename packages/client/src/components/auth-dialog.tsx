@@ -95,7 +95,7 @@ export const LoginDialog: BaseComponent = () => {
   if (me) {
     return <Button onClick={() => {
       logout()
-    }}>Sign Out ({me.email} - {me.socketId})</Button>
+    }}>Sign Out ({me.email})</Button>
   }
 
   return (
