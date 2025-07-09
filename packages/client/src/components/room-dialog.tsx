@@ -70,7 +70,6 @@ export const RoomDialog: BaseComponent = () => {
 
           <div className="grid gap-4">
             <div className="grid gap-2">
-              {/* <Label htmlFor="name">Name</Label> */}
               <Input placeholder="Enter room name" id="name" type="text" {...register("name")} />
               {errors.name && <p className="text-red-500 text-xs">{errors.name.message}</p>}
             </div>

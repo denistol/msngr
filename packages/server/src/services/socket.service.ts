@@ -61,7 +61,7 @@ private getSocketUserData(socket: Socket) {
 
   private broadcastUsers() {
     const users = Array.from(this.io.sockets.sockets.values()).map((socket) => (this.getSocketUserData(socket)));
-    this.io.emit(SocketEventType.USERS, users);
+    this.io.emit(SocketEventType.USERS, uniqBy(users, 'userId'));
   }
 
   private handleJoin(socket: Socket) {

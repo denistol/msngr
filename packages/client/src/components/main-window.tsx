@@ -17,7 +17,7 @@ import { useLoaderStore } from "@/hooks/use-loader";
 export const MainWindow: BaseComponent = () => {
     const { selectedUser, selectedRoom, me } = useUsersStore();
     const { addMessage } = useMessageStore();
-    const {loading, setLoading} = useLoaderStore()
+    const { loading } = useLoaderStore()
     const { init } = useInit()
     const [text, setText] = useState("");
 
@@ -51,7 +51,7 @@ export const MainWindow: BaseComponent = () => {
         <main className="mx-auto border container my-2 flex p-2 rounded-md  flex-1 gap-2">
             <AppTabs />
             <div className="rounded-md flex-1 gap-2 flex flex-col relative">
-                {loading && <AppLoader /> }
+                {loading && <AppLoader />}
                 <MessagesWindow />
                 <Textarea
                     onKeyDown={onKeyDown}
