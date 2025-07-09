@@ -1,0 +1,21 @@
+{
+  "name": "messenger",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build:server": "dotenv -e .env -- pnpm --filter server run build",
+    "start:server": "dotenv -e .env -- pnpm --filter server run start",
+    "dev:server": "dotenv -e .env -- pnpm --filter server run dev",
+    "build:client": "dotenv -e .env -- pnpm --filter client run build",
+    "start:client": "dotenv -e .env -- pnpm --filter client run start",
+    "dev:client": "dotenv -e .env -- pnpm --filter client run dev"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.12.1",
+  "dependencies": {
+    "dotenv-cli": "^8.0.0"
+  }
+}

@@ -1,0 +1,12 @@
+node_modules
+.env.local
+Dockerfile
+.dockerignore
+npm-debug.log
+.vscode
+dist
+build
+.cache
+.next
+packages/client/node_modules
+packages/server/node_modules

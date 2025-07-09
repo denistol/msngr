@@ -1,0 +1,48 @@
+services:
+
+  nginx:
+    image: nginx:alpine
+    container_name: messenger_nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - client
+      - server
+    networks:
+      - messenger_net
+
+  server:
+    build:
+      context: .
+      dockerfile: server.Dockerfile
+    container_name: messenger_server
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "${PORT_SERVER}:${PORT_SERVER}"
+    working_dir: /app
+    command: ["pnpm", "run", "start:server"]
+    networks:
+      - messenger_net
+
+  client:
+    build:
+      context: .
+      dockerfile: client.Dockerfile
+    container_name: messenger_client
+    restart: unless-stopped
+    ports:
+      - "${PORT_CLIENT}:${PORT_CLIENT}"
+    working_dir: /app
+    command: ["pnpm", "run", "start:client"]
+    depends_on:
+      - server
+    networks:
+      - messenger_net
+
+networks:
+  messenger_net:
