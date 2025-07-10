@@ -40,8 +40,8 @@ export const useInit = () => {
                         },
                     });
 
-                    toast(`Private message from ${data.from}`, {
-                        description: data.message,
+                    toast(`Private message from ${data.from.email}`, {
+                        description: data.message
                     });
                 },
                 onRoomMessage: (data) => {
@@ -54,7 +54,7 @@ export const useInit = () => {
                         },
                     });
 
-                    toast("Room message", {
+                    toast(`Room message from ${data.from.email}`, {
                         description: data.message,
                     });
                 },
