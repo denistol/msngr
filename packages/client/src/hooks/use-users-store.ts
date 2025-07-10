@@ -34,8 +34,18 @@ export const useUsersStore = create<UsersState>((set, get) => ({
       selectedUser: selectedUser?.userId === user.userId ? undefined : user
     })
   },
-  setUsers: (users) => {
-    set({ users })
+  setUsers: (incomingUsers) => {
+    const { users } = get()
+
+    const userMap = new Map(users.map(user => [user.userId, user]))
+
+    incomingUsers.forEach(iu => {
+      userMap.set(iu.userId, {
+        ...userMap.get(iu.userId),
+        ...iu
+      })
+    })
+    set({ users: Array.from(userMap.values()) })
   },
   setRooms: (rooms) => {
     set({ rooms })

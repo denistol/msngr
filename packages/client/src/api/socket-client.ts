@@ -8,6 +8,7 @@ export enum SocketEventType {
     USERS = "users",
     PRIVATE_MESSAGE = "private-message",
     ROOM_MESSAGE = "room-message",
+    GET_USERS = "get-users",
     JOIN = "join",
     ME = "me",
 }
@@ -89,6 +90,10 @@ export class SocketClient {
 
     privateMessage(to: SocketUser, message: string) {
         this.getSocket().emit(SocketEventType.PRIVATE_MESSAGE, { to, message });
+    }
+
+    getUsers() {
+        this.getSocket().emit(SocketEventType.GET_USERS);
     }
 
     roomMessage(room: Room, message: string) {

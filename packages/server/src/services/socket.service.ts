@@ -8,6 +8,7 @@ export enum SocketEventType {
   DISCONNECT = "disconnect",
   CONNECT_ERROR = "connect_error",
   USERS = "users",
+  GET_USERS = "get-users",
   PRIVATE_MESSAGE = "private-message",
   ROOM_MESSAGE = "room-message",
   JOIN = "join",
@@ -38,9 +39,17 @@ export class SocketService {
       this.logger.info(`Client connected: ${socket.id}, Sender ID: ${senderId}`);
 
       socket.emit(SocketEventType.ME, { socketId: socket.id, userId: senderId, email });
-
       this.setupHandlers(socket);
       this.broadcastUsers();
+
+      socket.on(SocketEventType.GET_USERS, () => {
+        this.broadcastUsers()
+      })
+
+      socket.on(SocketEventType.DISCONNECT, () => {
+        this.broadcastUsers()
+      })
+
     });
   }
 
@@ -61,7 +70,7 @@ private getSocketUserData(socket: Socket) {
 
   private broadcastUsers() {
     const users = Array.from(this.io.sockets.sockets.values()).map((socket) => (this.getSocketUserData(socket)));
-    this.io.emit(SocketEventType.USERS, uniqBy(users, 'userId'));
+    this.io.emit(SocketEventType.USERS, users);
   }
 
   private handleJoin(socket: Socket) {

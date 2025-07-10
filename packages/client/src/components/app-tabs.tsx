@@ -19,8 +19,7 @@ export const AppTabs: BaseComponent = () => {
     const { setMessages } = useMessageStore()
     const { setLoading } = useLoaderStore()
 
-    const otherUser = users.filter(user => user.userId !== me?.userId)
-
+    const otherUsers = users.filter(user => user.userId !== me?.userId)
     apiClient.addSetLoader(setLoading)
 
     useEffect(() => {
@@ -40,7 +39,10 @@ export const AppTabs: BaseComponent = () => {
 
     return (
         <div className="flex w-[180px] max-w-sm flex-col h-full">
-            <Tabs defaultValue="Rooms">
+            <Tabs defaultValue="Rooms"
+                onValueChange={() => {
+                    socketClient.getUsers()
+                }}>
 
                 <TabsList className="p-0 m-0 w-full">
                     <TabsTrigger value="Rooms">
@@ -72,7 +74,7 @@ export const AppTabs: BaseComponent = () => {
 
                 <TabsContent value="Users">
                     <div className="flex flex-col gap-2 flex-wrap h-full flex-1 mt-2 max-h-[calc(100dvh-17rem)] rounded-md overflow-y-auto">
-                        {otherUser.map(el => <div
+                        {otherUsers.map(el => <div
                             onClick={() => {
                                 selectUser(el)
                                 setMessages([])
